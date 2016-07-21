@@ -277,6 +277,24 @@ public class SpecificNotificationTests extends TestFoundation {
 	}
 
 
+	private static void test_IssueIOS10(String keystore, String password, String token, boolean production) {
+		try {
+			System.out.println("");
+			System.out.println("TESTING ISSUE iOS10");
+			PushNotificationPayload payload = PushNotificationPayload.complex();
+			payload.addAlert("Justice ain't gonna dispense itself.", "It's high noon...", "nobody nobody but you");
+			
+			payload.setMutableContent(true);
+			payload.addCustomDictionary("img", "http://www.plsscore.com/data/file/dbaj/3554824049_JOblh7Tv_98e3771b0fbce3f3b19fbef9c0d99d601c9e515a.jpg");
+			
+			List<PushedNotification> notifications = Push.payload(payload, keystore, password, production, token);
+			NotificationTest.printPushedNotifications(notifications);
+			System.out.println("ISSUE #99 TESTED");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	private static void test_ThreadPoolFeature(String keystore, String password, String token, boolean production) throws Exception {
 		try {
 			System.out.println("");
