@@ -232,6 +232,27 @@ public class PushNotificationPayload extends Payload {
 		put("alert", alertMessage, this.apsDictionary, false);
 	}
 
+	/**
+	 * Add a simple alert message.
+	 * Note: you cannot add a simple and a custom alert in the same payload.
+	 * 
+	 * @param alertMessage the alert's message
+	 * @throws JSONException
+	 */
+	public void addAlert(String title, String subtitle, String body) throws JSONException {
+		String previousAlert = getCompatibleProperty("alert", String.class, "A custom alert (\"%s\") was already added to this payload");
+		String alertMessage = title + "\n" + subtitle + "\n" + body;
+		logger.debug("Adding alert [" + alertMessage + "]" + (previousAlert != null ? " replacing previous alert [" + previousAlert + "]" : ""));
+		JSONObject alertJsonObj = new JSONObject();
+		if(title != null)
+			alertJsonObj.put("title", title);
+		if(subtitle != null)
+			alertJsonObj.put("subtitle", subtitle);
+		if(body != null)
+			alertJsonObj.put("body", body);
+		
+		put("alert", alertJsonObj, this.apsDictionary, false);
+	}
 
 	/**
 	 * Get the custom alert object, creating it if it does not yet exist.
@@ -361,6 +382,20 @@ public class PushNotificationPayload extends Payload {
 		}
 	}
 
+	/**
+	 * Sets the content available.
+	 *
+	 * @param mutable
+	 * @throws JSONException
+	 */
+	public void setMutableContent(boolean mutable) throws JSONException {
+		if (mutable == true) {
+			put("mutable-content", 1, this.apsDictionary, false);
+		} else {
+			remove("mutable-content", this.apsDictionary);
+		}
+	}
+	
 	/**
 	 * Return the maximum payload size in bytes.
 	 * For APNS payloads, this method returns 256.
