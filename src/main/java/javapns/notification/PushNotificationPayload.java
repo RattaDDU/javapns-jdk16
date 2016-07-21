@@ -207,6 +207,17 @@ public class PushNotificationPayload extends Payload {
 		put("sound", sound, this.apsDictionary, true);
 	}
 
+	
+	/**
+	 * Add a category.
+	 * 
+	 * @param category the category of a message
+	 * @throws JSONException
+	 */
+	public void addCategory(String category) throws JSONException {
+		logger.debug("Adding category [" + category + "]");
+		put("category", category, this.apsDictionary, true);
+	}
 
 	/**
 	 * Add a simple alert message.
