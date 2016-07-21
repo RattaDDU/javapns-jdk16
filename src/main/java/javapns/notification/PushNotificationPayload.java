@@ -398,9 +398,9 @@ public class PushNotificationPayload extends Payload {
 	
 	/**
 	 * Return the maximum payload size in bytes.
-	 * For APNS payloads, this method returns 256.
+	 * For APNS payloads, this method returns 2048.
 	 * 
-	 * @return the maximum payload size in bytes (256)
+	 * @return the maximum payload size in bytes (2048)
 	 */
 	@Override
 	public int getMaximumPayloadSize() {
